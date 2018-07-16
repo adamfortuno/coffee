@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>Coffee.Database.AlwaysEncrypted</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{b1bc6048-4dfb-4c5e-bcc4-7a6b8174e6b7}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>Coffee.Database.AlwaysEncrypted</RootNamespace>
+    <AssemblyName>Coffee.Database.AlwaysEncrypted</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>data</DefaultFilegroup>
+    <Recovery>SIMPLE</Recovery>
+    <DelayedDurability>DISABLED</DelayedDurability>
+    <DbScopedConfigOptimizerHotfixes>On</DbScopedConfigOptimizerHotfixes>
+    <DbScopedConfigOptimizerHotfixesSecondary>On</DbScopedConfigOptimizerHotfixesSecondary>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatTSqlWarningsAsErrors>False</TreatTSqlWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="Storage\" />
+    <Folder Include="Scripts" />
+    <Folder Include="keys" />
+    <Folder Include="dbo\Procedures" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Scripts\setup.key_default.sql" />
+    <Build Include="..\Coffee.Database\dbo\Tables\customer.sql">
+      <Link>dbo\Tables\customer.sql</Link>
+    </Build>
+    <Build Include="..\Coffee.Database\dbo\Tables\order_detail.sql">
+      <Link>dbo\Tables\order_detail.sql</Link>
+    </Build>
+    <Build Include="..\Coffee.Database\dbo\Tables\sustenance.sql">
+      <Link>dbo\Tables\sustenance.sql</Link>
+    </Build>
+    <Build Include="dbo\Tables\order.sql" />
+    <None Include="..\Coffee.Database\Scripts\insert.dbo.customer.sql">
+      <Link>Scripts\insert.dbo.customer.sql</Link>
+    </None>
+    <None Include="..\Coffee.Database\Scripts\insert.dbo.sustenance.sql">
+      <Link>Scripts\insert.dbo.sustenance.sql</Link>
+    </None>
+    <Build Include="..\Coffee.Database\Storage\data.sql">
+      <Link>Storage\data.sql</Link>
+    </Build>
+    <PostDeploy Include="..\Coffee.Database\Scripts\deployment.post.sql">
+      <Link>Scripts\deployment.post.sql</Link>
+    </PostDeploy>
+    <Build Include="..\Coffee.Database\dbo\Procedures\coffee_get_order.sql">
+      <Link>dbo\Procedures\coffee_get_order.sql</Link>
+    </Build>
+    <Build Include="..\Coffee.Database\dbo\Procedures\coffee_get_order_random.sql">
+      <Link>dbo\Procedures\coffee_get_order_random.sql</Link>
+    </Build>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="keys\AlwaysEncrypted.pfx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="keys\AlwaysEncrypted.passphrase.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="keys\AlwaysEncrypted.import.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Coffee.AlwaysEncrypted.Development.publish.xml" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,12 @@
+\Memory\Available MBytes
+\PhysicalDisk(D:)\Avg. Disk sec/Read
+\PhysicalDisk(D:)\Avg. Disk sec/Write
+\PhysicalDisk(D:)\Disk Reads/sec
+\PhysicalDisk(D:)\Disk Writes/sec
+\Processor Information(*)\% User Time
+\SQLServer:General Statistics\User Connections
+\SQLServer:Memory Manager\Memory Grants Pending
+\SQLServer:SQL Statistics\Batch Requests/sec
+\SQLServer:SQL Statistics\SQL Compilations/sec
+\SQLServer:SQL Statistics\SQL Re-Compilations/sec
+\System\Processor Queue Length
